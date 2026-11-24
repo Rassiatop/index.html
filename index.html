@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090914">
+<meta name="description" content="CaseWorld — бесплатная игра с виртуальными кейсами и коллекцией предметов.">
+<title>CaseWorld — открывай свою коллекцию</title>
+<style>
+:root{--bg:#090914;--panel:#111222;--panel2:#17182d;--line:#292a49;--text:#f7f5ff;--muted:#a5a4c4;--purple:#8b43ff;--pink:#d34cff;--gold:#ffc85a;--green:#49e0a1}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#38205e 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.45 Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+button,input{font:inherit}button{border:0;cursor:pointer;color:white;font-weight:800;border-radius:12px;padding:12px 17px;background:linear-gradient(110deg,#6726df,#a13df4);box-shadow:0 8px 24px #7d32ed35;transition:.18s}button:hover{filter:brightness(1.13);transform:translateY(-2px)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}.secondary{background:#272742;box-shadow:none;border:1px solid #39395b}.small{padding:9px 12px;font-size:13px}
+header{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(4%,calc((100% - 1400px)/2));background:#0c0c19dd;backdrop-filter:blur(16px);position:sticky;top:0;z-index:5}
+.logo{font-size:27px;font-weight:950;letter-spacing:-1.2px;white-space:nowrap}.logo b{color:#b35aff}.logo i{font-style:normal;color:#b35aff;margin-right:8px}
+nav{display:flex;gap:24px;color:var(--muted);font-weight:700}nav a{color:inherit;text-decoration:none}nav a:hover,nav a.active{color:white}
+.header-right{display:flex;align-items:center;gap:12px}.wallet{background:#17172b;border:1px solid var(--line);border-radius:12px;padding:9px 13px;font-weight:900;color:var(--gold)}
+.wrap{max-width:1400px;margin:auto;padding:24px 24px 56px}.hero{min-height:275px;border:1px solid #3b2863;border-radius:23px;overflow:hidden;padding:38px;display:flex;align-items:center;position:relative;background:radial-gradient(circle at 78% 50%,#7c2be677,transparent 32%),linear-gradient(115deg,#24113e,#111326 65%);box-shadow:0 18px 70px #5e22a51a}
+.hero:before{content:"";position:absolute;width:300px;height:230px;right:9%;top:25px;border-radius:34px;transform:rotate(-12deg);background:linear-gradient(140deg,#6d29c8,#251445 65%);border:1px solid #c18aff77;box-shadow:0 0 80px #a23cff55,inset 0 0 35px #d19aff33}
+.hero:after{content:"✦";position:absolute;right:19%;top:23px;font-size:160px;color:#e4caff;filter:drop-shadow(0 0 25px #c66aff);transform:rotate(15deg)}
+.hero-content{position:relative;z-index:1;max-width:650px}.eyebrow{color:#d6b5ff;font-size:12px;letter-spacing:2px;font-weight:900;text-transform:uppercase}.hero h1{font-size:clamp(42px,6vw,70px);line-height:1;margin:10px 0;letter-spacing:-3px}.hero h1 span{color:#bd6aff}.hero p{font-size:18px;color:#d3cbe8;max-width:540px;margin:0 0 23px}.hero-note{font-size:11px;color:#c5b7dc;margin-top:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:20px;margin-top:20px}.main{min-width:0}.side{display:flex;flex-direction:column;gap:15px}.panel,.case-card,.adslot{background:linear-gradient(145deg,#17182c,#10111f);border:1px solid var(--line);border-radius:18px}.panel{padding:18px}.panel h3{margin:0 0 10px}.muted{color:var(--muted)}.tiny{font-size:12px}.balance{font-size:26px;font-weight:950;color:var(--gold)}.userline{display:flex;align-items:center;gap:11px}.avatar{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#7431cb,#2c1b55);display:grid;place-items:center;font-size:22px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:14px;margin:27px 2px 14px}.section-head h2{font-size:23px;margin:0;letter-spacing:-.5px}.section-head p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.filter{background:#17182b;border:1px solid var(--line);color:#b9b5d2;box-shadow:none;padding:9px 13px;font-size:12px}.filter.active{background:#5424a0;border-color:#9b5cff;color:white}
+.search{width:100%;max-width:260px;background:#151629;color:white;border:1px solid var(--line);padding:10px 13px;border-radius:11px;outline:none}.search:focus{border-color:#9852ee}
+.case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.case-card{padding:13px;position:relative;overflow:hidden;transition:.2s}.case-card:hover{transform:translateY(-4px);border-color:#8350c7;box-shadow:0 14px 32px #0005}.case-art{height:145px;border-radius:13px;display:grid;place-items:center;position:relative;overflow:hidden;margin-bottom:12px;background:radial-gradient(circle at 50% 48%,var(--glow),transparent 67%),linear-gradient(145deg,#22213a,#111222)}.case-art:before{content:"";position:absolute;width:110px;height:86px;border:1px solid #ffffff35;border-radius:17px;transform:rotate(-14deg);background:linear-gradient(135deg,#ffffff18,#ffffff03);box-shadow:0 15px 35px #0007}.case-art span{font-size:65px;z-index:1;filter:drop-shadow(0 10px 12px #0009);transform:rotate(-8deg)}.rarity{position:absolute;top:10px;left:10px;font-size:9px;font-weight:900;letter-spacing:1px;padding:5px 8px;border-radius:20px;background:#0b0b17aa;border:1px solid #ffffff22;color:#e4d6ff}.case-card h3{margin:4px 0 2px;font-size:16px}.case-desc{font-size:11px;color:var(--muted);min-height:30px}.case-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:12px}.price{font-weight:950;color:var(--gold)}.case-card button{width:100%;margin-top:11px;padding:10px}
+.adslot{padding:17px;background:linear-gradient(135deg,#251642,#141426);border-color:#473064}.ad-label{font-size:9px;letter-spacing:1.4px;color:#c8a6ff;font-weight:900}.adslot h3{margin:9px 0 5px}.adslot p{font-size:12px;color:#c4bdd8}.adslot button{width:100%;background:#4a3868;box-shadow:none}
+.bonus-line{display:flex;justify-content:space-between;align-items:center;margin:12px 0}.online{color:var(--green);font-weight:800}.inventory{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.item{background:#17182b;border:1px solid var(--line);border-radius:12px;text-align:center;padding:12px 5px}.item strong{display:block;font-size:30px}.item span{font-size:10px;color:var(--muted);display:block;overflow-wrap:anywhere}
+.empty{grid-column:1/-1;text-align:center;padding:28px;color:var(--muted);border:1px dashed #3b3b5c;border-radius:14px}
+.modal{position:fixed;inset:0;background:#05050be8;display:none;place-items:center;z-index:20;padding:18px}.modal.show{display:grid}.dialog{width:min(510px,100%);padding:25px;background:#17162a;border:1px solid #67419a;border-radius:22px;text-align:center;box-shadow:0 25px 90px #000}.roulette{height:130px;border:1px solid #634099;border-radius:16px;margin:20px 0;display:grid;place-items:center;background:radial-gradient(circle,#48236d,#171629);font-size:62px}.result{font-size:22px;font-weight:950;color:#d5a8ff;min-height:34px}.dialog .muted{font-size:12px}.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#27213b;border:1px solid #7145a8;padding:12px 18px;border-radius:12px;display:none;z-index:30;box-shadow:0 10px 40px #0009;max-width:90%;text-align:center}
+footer{border-top:1px solid var(--line);padding:25px 20px;text-align:center;color:#85819e;font-size:11px}
+@media(max-width:1050px){nav{gap:13px}.layout{grid-template-columns:minmax(0,1fr) 250px}.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero:before{right:3%}.hero:after{right:12%}}
+@media(max-width:760px){header{height:auto;min-height:68px;padding:12px 4%;flex-wrap:wrap;gap:10px}.logo{font-size:23px}nav{order:3;width:100%;overflow:auto;padding:5px 0;font-size:13px}.header-right{margin-left:auto}.wrap{padding:15px 13px 40px}.hero{min-height:235px;padding:25px}.hero:before{right:-80px;opacity:.55}.hero:after{right:0;opacity:.45}.hero-content{max-width:90%}.hero p{font-size:15px}.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}.side .adslot{grid-column:1/-1}.section-head{align-items:start;flex-direction:column}.search{max-width:none}.case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.case-art{height:118px}.case-art span{font-size:54px}}
+@media(max-width:390px){.case-grid{gap:9px}.case-card{padding:9px}.case-art{height:100px}.side{grid-template-columns:1fr}.wallet{font-size:12px}.hero h1{font-size:40px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="logo"><i>⬡</i>Case<span>World</span></div>
+ <nav><a class="active" href="#top">Главная</a><a href="#cases">Кейсы</a><a href="#collection">Коллекция</a><a href="#bonuses">Бонусы</a></nav>
+ <div class="header-right"><div class="wallet">🪙 <span id="headBalance">500</span></div><button class="small" onclick="toast('В этой версии профиль демонстрационный')">Профиль</button></div>
+</header>
+<div class="wrap" id="top">
+ <section class="hero">
+  <div class="hero-content">
+   <div class="eyebrow">✦ Твоя коллекция начинается здесь</div>
+   <h1>Case<span>World</span></h1>
+   <p>Открывай красочные виртуальные кейсы, собирай предметы и пополняй свою коллекцию.</p>
+   <button onclick="document.querySelector('#cases').scrollIntoView({behavior:'smooth'})">Выбрать кейс　➜</button>
+   <div class="hero-note">Бесплатная демо-игра · Только виртуальные монеты · Без денежных ставок</div>
+  </div>
+ </section>
+ <div class="layout">
+  <main class="main">
+   <div class="section-head" id="cases"><div><h2>✦ Каталог кейсов</h2><p>Выбери настроение и попробуй удачу в виртуальной коллекции</p></div><input class="search" id="search" placeholder="⌕  Найти кейс..." oninput="renderCases()"></div>
+   <div class="filters" id="filters"></div>
+   <div class="case-grid" id="caseGrid"></div>
+   <div class="section-head" id="collection"><div><h2>🎒 Моя коллекция</h2><p>Предметы, которые выпали в этой игре</p></div><span class="muted tiny" id="itemCount">0 предметов</span></div>
+   <div class="inventory" id="inventory"><div class="empty">Пока пусто. Открой первый кейс!</div></div>
+  </main>
+  <aside class="side">
+   <div class="panel">
+    <div class="userline"><div class="avatar">👤</div><div><b>Гость</b><div class="muted tiny">Локальный демо-профиль</div></div></div>
+    <div class="bonus-line"><span class="muted">Твой баланс</span><b class="balance"><span id="balance">500</span> 🪙</b></div>
+    <div class="muted tiny">Монеты существуют только внутри демо-игры и не имеют денежной стоимости.</div>
+   </div>
+   <div class="panel" id="bonuses">
+    <div class="eyebrow">🎁 Ежедневная награда</div><h3>Бонус дня</h3><p class="muted tiny">Забирай монеты один раз за текущую сессию.</p><div class="balance">+150 🪙</div><button id="dailyBtn" style="width:100%" onclick="daily()">Забрать бонус</button>
+   </div>
+   <div class="adslot">
+    <div class="ad-label">РЕКЛАМНОЕ МЕСТО · ДЕМО</div><h3>🎬 Бонусная зона</h3><p>Здесь можно разместить разрешённый рекламный блок после проверки правил рекламной сети и требований к аудитории.</p><button onclick="toast('Рекламная сеть пока не подключена. Это макет блока.')">Демо рекламы</button>
+   </div>
+   <div class="adslot">
+    <div class="ad-label">БАННЕР · ДЕМО</div><h3>Твоё место для рекламы</h3><p>Область для баннера. Сейчас она не загружает рекламу и не приносит доход.</p>
+   </div>
+   <div class="panel"><h3>📊 Статистика</h3><div class="bonus-line"><span class="muted tiny">Открыто кейсов</span><b id="opened">0</b></div><div class="bonus-line"><span class="muted tiny">Предметов собрано</span><b id="collected">0</b></div><div class="bonus-line"><span class="muted tiny">Статус</span><b class="online">● Онлайн</b></div></div>
+  </aside>
+ </div>
+</div>
+<footer>© 2026 CaseWorld Demo. Виртуальные предметы и монеты не имеют денежной стоимости, не продаются и не выводятся. Вероятности и результат каждого открытия демонстрационные.</footer>
+<div class="modal" id="modal"><div class="dialog"><div class="eyebrow">CASEWORLD · ОТКРЫТИЕ</div><h2 id="modalTitle">Открываем кейс</h2><div class="roulette" id="roulette">🎁</div><div class="result" id="result">Удачи!</div><p class="muted">Результат добавится в локальную коллекцию на этом устройстве.</p><button class="secondary" onclick="closeModal()">Продолжить</button></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const cases=[
+ {name:'Неоновый старт',cat:'Старт',cost:50,icon:'📦',glow:'#8c42ff',rarity:'ОБЫЧНЫЙ',desc:'Первые находки для коллекции',items:['🔹 Кристалл','🧤 Неоновые перчатки','🎯 Пиксельный прицел','🔫 Лазерный бластер']},
+ {name:'Золотой запас',cat:'Премиум',cost:100,icon:'🟨',glow:'#d69a32',rarity:'РЕДКИЙ',desc:'Золото, блеск и редкие вещи',items:['🥇 Золотой жетон','👑 Корона','✨ Золотая искра','💎 Солнечный камень']},
+ {name:'Ледяная буря',cat:'Стихии',cost:120,icon:'❄️',glow:'#37bce9',rarity:'РЕДКИЙ',desc:'Холодная коллекция севера',items:['❄️ Ледяной кристалл','🧊 Снежный щит','🌌 Полярное сияние','💠 Сапфир']},
+ {name:'Теневой',cat:'Тайна',cost:150,icon:'🌑',glow:'#7b55c9',rarity:'ЭПИЧЕСКИЙ',desc:'Загадочные предметы из тени',items:['🌘 Лунная маска','🗡️ Теневой клинок','🦇 Ночной знак','🖤 Чёрный алмаз']},
+ {name:'Киберспорт',cat:'Техника',cost:180,icon:'🎮',glow:'#39d4b4',rarity:'ЭПИЧЕСКИЙ',desc:'Гаджеты и цифровые артефакты',items:['🎧 Кибергарнитура','⌨️ Механическая клавиатура','🖱️ Турбо-мышь','🕹️ Ретро-контроллер']},
+ {name:'Драконий огонь',cat:'Стихии',cost:220,icon:'🐉',glow:'#ef583e',rarity:'ЛЕГЕНДАРНЫЙ',desc:'Жаркая коллекция легенд',items:['🐉 Чешуя дракона','🔥 Огненное сердце','🧡 Рубиновый талисман','⚔️ Пылающий меч']},
+ {name:'Космический',cat:'Космос',cost:250,icon:'🪐',glow:'#8a5bff',rarity:'ЛЕГЕНДАРНЫЙ',desc:'Находки из далёкой галактики',items:['🪐 Кольцо Сатурна','🌠 Звёздный след','🚀 Космобот','🌟 Сверхновая']},
+ {name:'Розовый импульс',cat:'Стиль',cost:280,icon:'💗',glow:'#e94eaf',rarity:'ЭПИЧЕСКИЙ',desc:'Яркие вещи с характером',items:['💗 Розовый импульс','🌸 Сакура','💎 Розовый кварц','🦋 Крылья мечты']},
+ {name:'Изумрудный лес',cat:'Стихии',cost:320,icon:'🌿',glow:'#3ecb83',rarity:'ЛЕГЕНДАРНЫЙ',desc:'Редкости из затерянного леса',items:['🍀 Изумруд удачи','🌳 Древний тотем','🦚 Перо феникса','💚 Сердце леса']},
+ {name:'Королевский',cat:'Премиум',cost:400,icon:'👑',glow:'#e7b64c',rarity:'ЛЕГЕНДАРНЫЙ',desc:'Самые роскошные артефакты',items:['👑 Королевская корона','💍 Сапфировое кольцо','🏆 Золотой кубок','🦁 Герб короля']},
+ {name:'Глитч',cat:'Техника',cost:450,icon:'🌀',glow:'#9b62ff',rarity:'ЭПИЧЕСКИЙ',desc:'Сбой реальности в твою пользу',items:['🌀 Глитч-сфера','👾 Пиксельный призрак','💾 Потерянный файл','🔮 Цифровой оракул']},
+ {name:'Супернова',cat:'Космос',cost:500,icon:'☄️',glow:'#ff8d4e',rarity:'ЛЕГЕНДАРНЫЙ',desc:'Финальная вспышка вселенной',items:['☄️ Комета','🌞 Солнечная корона','🌌 Галактическое ядро','✨ Пыль сверхновой']}
+];
+let balance=500,opened=0,inventory=[],dailyTaken=false,activeCat='Все';
+const cats=['Все',...new Set(cases.map(c=>c.cat))];
+function sync(){document.getElementById('balance').textContent=balance;document.getElementById('headBalance').textContent=balance;document.getElementById('opened').textContent=opened;document.getElementById('collected').textContent=inventory.length;document.getElementById('itemCount').textContent=inventory.length+' предметов'}
+function renderFilters(){document.getElementById('filters').innerHTML=cats.map(c=>`<button class="filter ${activeCat===c?'active':''}" onclick="setCat('${c}')">${c}</button>`).join('')}
+function setCat(c){activeCat=c;renderFilters();renderCases()}
+function renderCases(){let q=document.getElementById('search').value.toLowerCase();let list=cases.filter(c=>(activeCat==='Все'||c.cat===activeCat)&&c.name.toLowerCase().includes(q));document.getElementById('caseGrid').innerHTML=list.length?list.map(c=>`<article class="case-card"><div class="case-art" style="--glow:${c.glow}"><span>${c.icon}</span><div class="rarity">${c.rarity}</div></div><h3>${c.name}</h3><div class="case-desc">${c.desc}</div><div class="case-bottom"><span class="muted tiny">${c.cat}</span><span class="price">${c.cost} 🪙</span></div><button onclick="openCase('${c.name}')">Открыть кейс</button></article>`).join(''):'<div class="empty">Ничего не найдено. Попробуй другое название.</div>'}
+function renderInventory(){let el=document.getElementById('inventory');el.innerHTML=inventory.length?inventory.slice().reverse().map(it=>`<div class="item"><strong>${it.icon}</strong><span>${it.name}</span></div>`).join(''):'<div class="empty">Пока пусто. Выбери кейс выше и собери первые предметы ✨</div>'}
+function toast(msg){let el=document.getElementById('toast');el.textContent=msg;el.style.display='block';clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.style.display='none',2500)}
+function daily(){if(dailyTaken){toast('Бонус уже получен в этой сессии');return}dailyTaken=true;balance+=150;document.getElementById('dailyBtn').textContent='Бонус получен ✓';document.getElementById('dailyBtn').disabled=true;sync();toast('Получено +150 виртуальных монет!')}
+function openCase(name){let c=cases.find(x=>x.name===name);if(balance<c.cost){toast('Не хватает виртуальных монет. Забери ежедневный бонус!');return}balance-=c.cost;sync();document.getElementById('modalTitle').textContent='Кейс «'+name+'»';document.getElementById('result').textContent='Ищем предмет...';document.getElementById('roulette').textContent='🎁';document.getElementById('modal').classList.add('show');let n=0;let spin=setInterval(()=>{document.getElementById('roulette').textContent=c.items[Math.floor(Math.random()*c.items.length)].split(' ')[0];if(++n>=18){clearInterval(spin);let prize=c.items[Math.floor(Math.random()*c.items.length)];inventory.push({name:prize,icon:prize.split(' ')[0]});opened++;document.getElementById('roulette').textContent=prize.split(' ')[0];document.getElementById('result').textContent='Выпало: '+prize;renderInventory();sync()}},100)}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+renderFilters();renderCases();renderInventory();sync();
+</script>
+</body>
+</html>
